@@ -15,7 +15,11 @@ services:
       # BE_PATH: /api-live
       BE_PROFILE_ACTIVE: prod
       # BE_MINIO_URL: https://api.storage.cjvina.com
+
       BE_MINIO_URL: http://localhost:9000
+      BE_MINIO_ACCESS_KEY: klua8zUM4EcPNxu80XgN
+      BE_MINIO_SECRET_KEY: hLjkYHw2cLByyjgvFjaWaC9NC56NOnRk58gTiwgc
+
       BE_DB_HOST: postgres
       BE_DB_PORT: 5432
   frontend0610:
