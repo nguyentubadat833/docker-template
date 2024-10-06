@@ -14,3 +14,19 @@ services:
       - /mnt/postgresql:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  pgadmin:
+    container_name: postgres-pgadmin-con
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-nguyentubadat833@gmail.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-it@datnguyen@}
+
+    volumes:
+      - pgadmin-vol:/var/lib/pgadmin
+
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+
+volumes:
+  pgadmin-vol:
+    name: pgadmin-vol
