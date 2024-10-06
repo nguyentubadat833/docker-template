@@ -23,7 +23,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-it@datnguyen@}
     volumes:
       - pgadmin-vol:/var/lib/pgadmin
-      - /mnt/d/pgadmin/backup:/backup
+      - /mnt/d/pgadmin/backup:/pgadmin4/backup
     ports:
       - "${PGADMIN_PORT:-5050}:80"
 
