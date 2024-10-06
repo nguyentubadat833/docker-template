@@ -15,6 +15,8 @@ services:
       BE_PROFILE_ACTIVE: prod
       # BE_MINIO_URL: https://api.storage.cjvina.com
       BE_MINIO_URL: http://localhost:9000
+      BE_DB_HOST: postgres
+      BE_DB_PORT: 5432
   frontend0610:
     restart: unless-stopped
     container_name: cj-cct-fe-prod-con-0610
@@ -33,6 +35,8 @@ services:
 networks:
   # minio_default:
   #   external: true
+  postgre-stack_default:
+    external: true
   live_deploy:
     driver: bridge
     name: live-deploy-net-0610
