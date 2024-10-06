@@ -9,6 +9,7 @@ services:
       - "9099:9099"
     networks:
       - live_deploy
+      - postgre-stack_default
       # - minio_default
     environment:
       # BE_PATH: /api-live
