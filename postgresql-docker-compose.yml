@@ -9,21 +9,20 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-livestock}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123abc}
-      PGDATA: /var/lib/postgresql/data/pgdata
+      PGDATA: /data/postgres
     volumes:
-      - /mnt/d/linux/postgresql:/var/lib/postgresql/data
+      - /mnt/d/linux/postgresql:/data/postgres
     ports:
       - "5432:5432"
+
   pgadmin:
     container_name: postgres-pgadmin-con
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-nguyentubadat833@gmail.com}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-it@datnguyen@}
-
     volumes:
       - pgadmin-vol:/var/lib/pgadmin
-
     ports:
       - "${PGADMIN_PORT:-5050}:80"
 
