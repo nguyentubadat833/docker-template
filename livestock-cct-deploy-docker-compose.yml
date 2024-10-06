@@ -30,21 +30,6 @@ services:
     networks:
       - live_deploy
 
-  minio:
-    image: minio/minio
-    container_name: minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    volumes:
-      - /mnt/d/minio:/data
-    environment:
-      MINIO_ROOT_USER: datnguyen
-      MINIO_ROOT_PASSWORD: it@datnguyen@
-      # MINIO_BROWSER_REDIRECT_URL: https://minio.cjlivestock.net
-      # MINIO_SERVER_URL: https://api-minio.cjlivestock.net
-    command: server --console-address ":9001" /data
-
 networks:
   minio_default:
     external: true
