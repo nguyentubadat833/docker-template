@@ -5,8 +5,6 @@ services:
     container_name: cj-cct-be-prod-con-0610
     restart: unless-stopped
     image: nguyentubadat/cj-cct-be-prod:1.0.7.1
-    depends_on:
-      - minio
     ports:
       - "9099:9099"
     networks:
@@ -21,6 +19,8 @@ services:
     restart: unless-stopped
     container_name: cj-cct-fe-prod-con-0610
     image: nguyentubadat/cj-cct-fe-prod:1.0.7.1
+    depends_on:
+      - backend0610
     ports:
       - "3009:3000"
     environment:
@@ -31,8 +31,8 @@ services:
       - live_deploy
 
 networks:
-  minio_default:
-    external: true
+  # minio_default:
+  #   external: true
   live_deploy:
     driver: bridge
     name: live-deploy-net-0610
