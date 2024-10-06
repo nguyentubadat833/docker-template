@@ -3,7 +3,7 @@ version: "3.8"
 services:
   postgres:
     container_name: postgres-sql-con
-    image: postgres
+    image: postgres:16.4-bullseye
     hostname: postgres
     restart: unless-stopped
     environment:
