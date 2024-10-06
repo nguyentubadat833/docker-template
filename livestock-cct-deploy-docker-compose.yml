@@ -10,7 +10,7 @@ services:
     networks:
       - live_deploy
       - postgre-stack_default
-      # - minio_default
+      - minio_default
     environment:
       # BE_PATH: /api-live
       BE_PROFILE_ACTIVE: prod
@@ -39,8 +39,8 @@ services:
       - live_deploy
 
 networks:
-  # minio_default:
-  #   external: true
+  minio_default:
+    external: true
   postgre-stack_default:
     external: true
   live_deploy:
