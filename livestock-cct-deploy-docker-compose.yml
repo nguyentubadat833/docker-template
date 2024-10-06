@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  backend0610:
+    container_name: cj-cct-be-prod-con-0610
+    restart: unless-stopped
+    image: nguyentubadat/cj-cct-be-prod:1.0.7.1
+    depends_on:
+      - minio
+    ports:
+      - "9099:9099"
+    networks:
+      - live_deploy
+      - minio_default
+    environment:
+      # BE_PATH: /api-live
+      BE_PROFILE_ACTIVE: prod
+      # BE_MINIO_URL: https://api.storage.cjvina.com
+      BE_MINIO_URL: http://localhost:9000
+  frontend0610:
+    restart: unless-stopped
+    container_name: cj-cct-fe-prod-con-0610
+    image: nguyentubadat/cj-cct-fe-prod:1.0.7.1
+    ports:
+      - "3009:3000"
+    environment:
+      NUXT_PUBLIC_DOMAIN_LIVE: /api-live
+      NUXT_PUBLIC_PREFIX_PUBLIC_V1: public/api/v1
+      NUXT_PUBLIC_PREFIX_PRIVATE_V1: private/api/v1
+    networks:
+      - live_deploy
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - /mnt/d/minio:/data
+    environment:
+      MINIO_ROOT_USER: datnguyen
+      MINIO_ROOT_PASSWORD: it@datnguyen@
+      # MINIO_BROWSER_REDIRECT_URL: https://minio.cjlivestock.net
+      # MINIO_SERVER_URL: https://api-minio.cjlivestock.net
+    command: server --console-address ":9001" /data
+
+networks:
+  minio_default:
+    external: true
+  live_deploy:
+    driver: bridge
+    name: live-deploy-net-0610
