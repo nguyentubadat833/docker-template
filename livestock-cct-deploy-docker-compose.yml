@@ -9,7 +9,7 @@ services:
       - "9099:9099"
     networks:
       - live_deploy
-      - postgre-stack_default
+      - postgre-stack
       # - minio_default
     environment:
       # BE_PATH: /api-live
@@ -36,7 +36,8 @@ services:
 networks:
   # minio_default:
   #   external: true
-  postgre-stack_default:
+  postgre-stack:
+    name: postgre-stack_default
     external: true
   live_deploy:
     driver: bridge
