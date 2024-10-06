@@ -27,7 +27,8 @@ services:
     ports:
       - "3009:3000"
     environment:
-      NUXT_PUBLIC_DOMAIN_LIVE: /api-live
+      # NUXT_PUBLIC_DOMAIN_LIVE: /api-live
+      NUXT_PUBLIC_DOMAIN_LIVE: http://localhost:9099/api-live
       NUXT_PUBLIC_PREFIX_PUBLIC_V1: public/api/v1
       NUXT_PUBLIC_PREFIX_PRIVATE_V1: private/api/v1
     networks:
