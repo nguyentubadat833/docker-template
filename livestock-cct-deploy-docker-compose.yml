@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   backend0610:
     container_name: cj-cct-be-prod-con-0610
@@ -10,7 +8,7 @@ services:
     networks:
       - live_deploy
       - postgre-stack_default
-      - minio_default
+      - minio-stack_default
     environment:
       # BE_PATH: /api-live
       BE_PROFILE_ACTIVE: prod
@@ -36,7 +34,7 @@ services:
       - live_deploy
 
 networks:
-  minio_default:
+  minio-stack_default:
     external: true
   postgre-stack_default:
     external: true
