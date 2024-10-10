@@ -26,8 +26,8 @@ services:
       # DB_MYSQL_NAME: "nginx-proxy-manager"
 
     volumes:
-      - /mnt/d/linux/nginx-proxy-manager/data:/data
-      - /mnt/d/linux/nginx-proxy-manager/etc:/etc/letsencrypt
+      - /d/linux/nginx-proxy-manager/data:/data
+      - /d/linux/nginx-proxy-manager/etc:/etc/letsencrypt
 
 #Email:    admin@example.com
 #Password: changeme 
