@@ -13,5 +13,5 @@ services:
       MINIO_ROOT_USER: datnguyen
       MINIO_ROOT_PASSWORD: it@datnguyen@
       # MINIO_BROWSER_REDIRECT_URL: https://minio.cjlivestock.net
-      MINIO_SERVER_URL: https://api.storage.cjvina.com
+      # MINIO_SERVER_URL: https://api.storage.cjvina.com
     command: server --console-address ":9001" /data
