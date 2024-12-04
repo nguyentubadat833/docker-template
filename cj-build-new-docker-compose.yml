@@ -1,0 +1,96 @@
+services:
+  backend-old:
+    hostname: backend-old
+    container_name: cj-be-old-con
+    restart: unless-stopped
+    image: nguyentubadat/cj-cct-be-prod:2.0.0
+    ports:
+      - "9099:9099"
+    networks:
+      - live-deploy-new-net
+      - postgre-stack_default
+      - minio-stack_default
+    environment:
+      # BE_PATH: /api-live
+      BE_PROFILE_ACTIVE: prod
+      BE_MINIO_URL: http://minio:9000
+      BE_MINIO_ACCESS_KEY: iBhUnHZeDtmKic3ULVt4
+      BE_MINIO_SECRET_KEY: Oe7ttm4w5OI0fn3L4nbYxcYkDvMpKBF0fhABUsNH
+
+      BE_DB_HOST: postgres
+      BE_DB_PORT: 5432
+
+  frontend-old:
+    container_name: cj-fe-old-con
+    restart: unless-stopped
+    image: nguyentubadat/cj-cct-fe-prod:2.0.0
+    depends_on:
+      - backend-old
+    ports:
+      - "3009:3000"
+    networks:
+      - live-deploy-new-net
+    environment:
+      NUXT_PUBLIC_DOMAIN_LIVE: /api-live
+      NUXT_PUBLIC_PREFIX_PUBLIC_V1: public/api/v1
+      NUXT_PUBLIC_PREFIX_PRIVATE_V1: private/api/v1
+  auth-service-new:
+    container_name: auth-service-new-con
+    restart: unless-stopped
+    image: nguyentubadat/micro-auth-service:1.0.0
+    networks:
+      - live-deploy-new-net
+      - postgre-stack_default
+    ports:
+      - "4000:4000"
+    environment:
+      AUTH_PORT: 4000
+      AUTH_DATABASE_URL: postgresql://livestock:123abc@postgres:5432/prod-livestock-center?schema=public
+      AUTH_TOKEN_SECRET: RV<F({8oyT*(.~hP(cz:=00AvjY4c:rkRaj.6%hb{4;)qsys/<-.5E8<J!~TM3G
+      AUTH_TOKEN_LIFE: 1800s
+      AUTH_REFRESH_TOKEN_LIFE: 86400
+      AUTH_ALLOWED_ORIGINS: "*"
+  cj-service-new:
+    container_name: cj-service-new-con
+    restart: unless-stopped
+    depends_on:
+      - auth-service-new
+    image: nguyentubadat/micro-cj-service:1.0.0
+    networks:
+      - live-deploy-new-net
+      - postgre-stack_default
+    ports:
+      - "4001:4001"
+    environment:
+      CJ_SERVICE_PORT: 4001
+      CJ_SERVICE_DATABASE_URL: postgresql://livestock:123abc@postgres:5432/prod-livestock-center?schema=public
+      CJ_SERVICE_INTERNAL_AUTH_SERVICE_URL: http://auth-service-new:4000
+      CJ_SERVICE_AUTH_ENDPOINT_ACCESS: api/auth/authorization/auth-info
+      CJ_SERVICE_ALLOWED_ORIGINS: "*"
+  cj-web-ver2:
+    container_name: cj-web-ver2-con
+    restart: unless-stopped
+    image: nguyentubadat/cj-web-ver2:1.0.0
+    networks:
+      - live-deploy-new-net
+    depends_on:
+      - frontend-old
+      - auth-service-new
+      - cj-service-new
+    ports:
+      - "3000:3000"
+#    environment:
+#      NUXT_PUBLIC_AUTH_SERVICE_URL: http://localhost:4000
+#      NUXT_PUBLIC_CJ_SERVICE_URL: http://localhost:4001
+#      NUXT_PUBLIC_CJ_OLD_WEB_URL: http://localhost:3009
+#      NUXT_METABASE_SITE_URL: http://localhost:5000
+#      NUXT_METABASE_SECRET_KEY: a972b65f1fee4788e60c337fb7236c12c7d4d0e9a931b40aabcb87bac0ae9c07
+
+networks:
+  minio-stack_default:
+    external: true
+  postgre-stack_default:
+    external: true
+  live-deploy-new-net:
+    driver: bridge
+    name: live-deploy-new-net
