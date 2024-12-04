@@ -10,6 +10,7 @@ services:
       - live-deploy-new-net
       - postgre-stack_default
       - minio-stack_default
+      - nginx-proxy-manager_default
     environment:
       # BE_PATH: /api-live
       BE_PROFILE_ACTIVE: prod
@@ -30,6 +31,7 @@ services:
       - "3009:3000"
     networks:
       - live-deploy-new-net
+      - nginx-proxy-manager_default
     environment:
       NUXT_PUBLIC_DOMAIN_LIVE: /api-live
       NUXT_PUBLIC_PREFIX_PUBLIC_V1: public/api/v1
@@ -41,6 +43,7 @@ services:
     networks:
       - live-deploy-new-net
       - postgre-stack_default
+      - nginx-proxy-manager_default
     ports:
       - "4000:4000"
     environment:
@@ -49,7 +52,7 @@ services:
       AUTH_TOKEN_SECRET: RV<F({8oyT*(.~hP(cz:=00AvjY4c:rkRaj.6%hb{4;)qsys/<-.5E8<J!~TM3G
       AUTH_TOKEN_LIFE: 1800s
       AUTH_REFRESH_TOKEN_LIFE: 86400
-      AUTH_ALLOWED_ORIGINS: "*"
+      AUTH_ALLOWED_ORIGINS: "https://cct.cjvina.com"
   cj-service-new:
     container_name: cj-service-new-con
     restart: unless-stopped
@@ -59,6 +62,7 @@ services:
     networks:
       - live-deploy-new-net
       - postgre-stack_default
+      - nginx-proxy-manager_default
     ports:
       - "4001:4001"
     environment:
@@ -66,13 +70,14 @@ services:
       CJ_SERVICE_DATABASE_URL: postgresql://livestock:123abc@postgres:5432/prod-livestock-center?schema=public
       CJ_SERVICE_INTERNAL_AUTH_SERVICE_URL: http://auth-service-new:4000
       CJ_SERVICE_AUTH_ENDPOINT_ACCESS: api/auth/authorization/auth-info
-      CJ_SERVICE_ALLOWED_ORIGINS: "*"
+      CJ_SERVICE_ALLOWED_ORIGINS: "https://cct.cjvina.com"
   cj-web-ver2:
     container_name: cj-web-ver2-con
     restart: unless-stopped
     image: nguyentubadat/cj-web-ver2:1.0.0
     networks:
       - live-deploy-new-net
+      - nginx-proxy-manager_default
     depends_on:
       - frontend-old
       - auth-service-new
@@ -87,6 +92,8 @@ services:
 #      NUXT_METABASE_SECRET_KEY: a972b65f1fee4788e60c337fb7236c12c7d4d0e9a931b40aabcb87bac0ae9c07
 
 networks:
+  nginx-proxy-manager_default:
+    external: true
   minio-stack_default:
     external: true
   postgre-stack_default:
