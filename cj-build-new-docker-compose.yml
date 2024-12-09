@@ -32,10 +32,10 @@ services:
     networks:
       - live-deploy-new-net
       - nginx-proxy-manager_default
-    environment:
-      NUXT_PUBLIC_DOMAIN_LIVE: /api-live
-      NUXT_PUBLIC_PREFIX_PUBLIC_V1: public/api/v1
-      NUXT_PUBLIC_PREFIX_PRIVATE_V1: private/api/v1
+#    environment:
+#      NUXT_PUBLIC_DOMAIN_LIVE: /api-live
+#      NUXT_PUBLIC_PREFIX_PUBLIC_V1: public/api/v1
+#      NUXT_PUBLIC_PREFIX_PRIVATE_V1: private/api/v1
   auth-service-new:
     container_name: auth-service-new-con
     restart: unless-stopped
