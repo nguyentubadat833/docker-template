@@ -70,7 +70,7 @@ services:
       CJ_SERVICE_DATABASE_URL: postgresql://livestock:123abc@postgres:5432/prod-livestock-center?schema=public
       CJ_SERVICE_INTERNAL_AUTH_SERVICE_URL: http://auth-service-new:4000
       CJ_SERVICE_AUTH_ENDPOINT_ACCESS: api/auth/authorization/auth-info
-      CJ_SERVICE_ALLOWED_ORIGINS: "https://cct.cjvina.com"
+      CJ_SERVICE_ALLOWED_ORIGINS: "*"
   cj-web-ver2:
     container_name: cj-web-ver2-con
     restart: unless-stopped
