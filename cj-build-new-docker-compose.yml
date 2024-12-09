@@ -52,7 +52,7 @@ services:
       AUTH_TOKEN_SECRET: RV<F({8oyT*(.~hP(cz:=00AvjY4c:rkRaj.6%hb{4;)qsys/<-.5E8<J!~TM3G
       AUTH_TOKEN_LIFE: 1800s
       AUTH_REFRESH_TOKEN_LIFE: 86400
-      AUTH_ALLOWED_ORIGINS: '*'
+      AUTH_ALLOWED_ORIGINS: "*"
   cj-service-new:
     container_name: cj-service-new-con
     restart: unless-stopped
