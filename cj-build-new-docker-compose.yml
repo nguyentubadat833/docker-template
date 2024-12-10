@@ -3,7 +3,8 @@ services:
     hostname: backend-old
     container_name: cj-be-old-con
     restart: unless-stopped
-    image: nguyentubadat/cj-cct-be-prod:2.0.0
+#    image: nguyentubadat/cj-cct-be-prod:2.0.0
+    image: nguyentubadat/cj-cct-be-prod:1.0.7.1
     ports:
       - "9099:9099"
     networks:
