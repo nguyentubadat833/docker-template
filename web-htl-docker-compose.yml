@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    container_name: "web-htl-v2"
+    # image: nguyentubadat/ssr-full:1.0.21
+    image: nguyentubadat/ssr-full:2.0.0
+    ports:
+      # - "3009:3000"
+      - "3008:3000"
+    environment:
+      NODE_ENV: "production"
+      NUXT_ACCESS_TOKEN_SECRET: "RV<F({8oyT*(.~hP(cz:=00AvjY4c:rkRaj.6%hb{4;)qsys/<-.5E8<J!~TM3G"
+      NUXT_ACCESS_TOKEN_LIFE: 3600s
+      NUXT_MAIL_USER: htlarchitects@gmail.com
+      NUXT_MAIL_PASSWORD: "ogzn xlkk ozsh vjdl"
+      NUXT_APP_ADMIN_KEY: "4kAZUx|Xn]=>ip8UZLuTk:XUiXy&1Y[nd_huejmM]h5ahP|Az2~#HjtxH:7;s"
+      NUXT_APP_DOMAIN: "https://htlarchitects.com"
+      NUXT_APP_ROOT_PATH: "nuxt-app"
+      # NUXT_DATABASE_URL: "file:/nuxt-app/prisma/warehouse.db"
+      NUXT_UPLOAD_URL: "nuxt-app/upload"
+    volumes:
+      - /home/datnguyen/web-htl/upload:/nuxt-app/upload
+      - /home/datnguyen/web-htl/prisma/warehouse.db:/nuxt-app/prisma/warehouse.db
