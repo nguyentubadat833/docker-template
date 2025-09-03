@@ -1,29 +1,73 @@
+# services:
+#   backend0610:
+#     container_name: cj-cct-be-prod-con-0610
+#     restart: unless-stopped
+#     image: nguyentubadat/cj-cct-be-prod:1.0.7.1
+#     ports:
+#       - "9099:9099"
+#     networks:
+#       - live_deploy
+#       - postgre-stack_default
+#       - minio-stack_default
+#     environment:
+#       # BE_PATH: /api-live
+#       BE_PROFILE_ACTIVE: prod
+#       BE_MINIO_URL: http://minio:9000
+#       BE_MINIO_ACCESS_KEY: iBhUnHZeDtmKic3ULVt4
+#       BE_MINIO_SECRET_KEY: Oe7ttm4w5OI0fn3L4nbYxcYkDvMpKBF0fhABUsNH
+
+#       BE_DB_HOST: postgres
+#       BE_DB_PORT: 5432
+#   frontend0610:
+#     restart: unless-stopped
+#     container_name: cj-cct-fe-prod-con-0610
+#     image: nguyentubadat/cj-cct-fe-prod:1.0.7.1
+#     depends_on:
+#       - backend0610
+#     ports:
+#       - "3009:3000"
+#     environment:
+#       NUXT_PUBLIC_DOMAIN_LIVE: /api-live
+#       NUXT_PUBLIC_PREFIX_PUBLIC_V1: public/api/v1
+#       NUXT_PUBLIC_PREFIX_PRIVATE_V1: private/api/v1
+#     networks:
+#       - live_deploy
+
+# networks:
+#   minio-stack_default:
+#     external: true
+#   postgre-stack_default:
+#     external: true
+#   live_deploy:
+#     driver: bridge
+#     name: live-deploy-net-0610
+
 services:
-  backend0610:
-    container_name: cj-cct-be-prod-con-0610
+  backend0309:
+    container_name: cj-cct-be-prod-con-0309
     restart: unless-stopped
-    image: nguyentubadat/cj-cct-be-prod:1.0.7.1
+    image: nguyentubadat/cj-cct-be-prod:1.0.7.2
     ports:
       - "9099:9099"
     networks:
       - live_deploy
-      - postgre-stack_default
-      - minio-stack_default
+      - postgresql_default
+      - minio_default
     environment:
       # BE_PATH: /api-live
       BE_PROFILE_ACTIVE: prod
       BE_MINIO_URL: http://minio:9000
-      BE_MINIO_ACCESS_KEY: iBhUnHZeDtmKic3ULVt4
-      BE_MINIO_SECRET_KEY: Oe7ttm4w5OI0fn3L4nbYxcYkDvMpKBF0fhABUsNH
+      BE_MINIO_ACCESS_KEY: datnguyen
+      BE_MINIO_SECRET_KEY: it@datnguyen@
 
       BE_DB_HOST: postgres
       BE_DB_PORT: 5432
-  frontend0610:
+  frontend0309:
     restart: unless-stopped
-    container_name: cj-cct-fe-prod-con-0610
-    image: nguyentubadat/cj-cct-fe-prod:1.0.7.1
+    container_name: cj-cct-fe-prod-con-0309
+    image: nguyentubadat/cj-cct-fe-prod:1.0.7.3
     depends_on:
-      - backend0610
+      - backend0309
     ports:
       - "3009:3000"
     environment:
@@ -34,10 +78,11 @@ services:
       - live_deploy
 
 networks:
-  minio-stack_default:
+  minio_default:
     external: true
-  postgre-stack_default:
+  postgresql_default:
     external: true
   live_deploy:
     driver: bridge
-    name: live-deploy-net-0610
+    name: live-deploy-net-0309
+
