@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   minio:
     image: minio/minio
@@ -8,7 +6,8 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - /d/linux/minio:/data
+      # - /d/linux/minio:/data
+      - /home/datnguyen/docker/minio:/data
     environment:
       MINIO_ROOT_USER: datnguyen
       MINIO_ROOT_PASSWORD: it@datnguyen@
