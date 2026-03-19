@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  tailscale:
+    container_name: tailscale_con
+    image: tailscale/tailscale:latest
+    hostname: tailscale-rmk-vps
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}          # Đừng hardcode key trong compose
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - /home/docker/tailscale/state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    network_mode: "host"                  # <<< Quan trọng
+    restart: unless-stopped
+
+
+#nginx trỏ về ip trong tailscale
