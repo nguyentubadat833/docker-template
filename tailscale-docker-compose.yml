@@ -5,7 +5,7 @@ services:
     image: tailscale/tailscale:latest
     hostname: tailscale-rmk-vps
     environment:
-      - TS_AUTHKEY=${TS_AUTHKEY}          # Đừng hardcode key trong compose
+      - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
     volumes:
@@ -14,7 +14,7 @@ services:
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
-    network_mode: "host"                  # <<< Quan trọng
+    network_mode: "host"
     restart: unless-stopped
 
 
