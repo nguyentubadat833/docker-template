@@ -31,4 +31,4 @@ services:
       - "6379:6379"
     volumes:
       - /home/icpro/docker/redis:/data
-    command: ["redis-server", "--appendonly", "yes"]
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "500mb", "--maxmemory-policy", "allkeys-lru"]
