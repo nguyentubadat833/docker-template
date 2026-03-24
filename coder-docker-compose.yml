@@ -1,25 +1,17 @@
-version: "3.9"
-
+---
 services:
   code-server:
-    image: codercom/code-server:latest
-    restart: unless-stopped
+    image: lscr.io/linuxserver/code-server:latest
     container_name: code-server
-    ports:
-      - "8080:8080"
-      - "4000-4020:4000-4020"
-    volumes:
-      - /home/docker/coder/.local:/home/coder/.local
-      - /home/docker/coder/.config:/home/coder/.config
-      - /home/docker/coder/project:/home/coder/project
-    user: "${UID}:${GID}"
     environment:
-      - DOCKER_USER=${USER}
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Ho_Chi_Minh
       - PASSWORD=@Badat120297
-    networks:
-      - infrastructure_default
-    stdin_open: true
-    tty: true
-networks:
-  infrastructure_default:
-    external: true
+      - SUDO_PASSWORD=@Badat120297
+      - DEFAULT_WORKSPACE=/config/workspace
+    volumes:
+      - /home/carem/server/coder/config:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped
